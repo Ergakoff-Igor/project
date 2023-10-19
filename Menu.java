@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Menu extends Main {
+public class Menu {
     public static void menu() throws Exception {
         Scanner scan = new Scanner(System.in);
         int x = scan.nextInt();
