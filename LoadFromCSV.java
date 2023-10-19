@@ -5,30 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LoadFromCSV {
-    DateFormater dateFormater = new DateFormater();
-    NoteBook currentBook = new NoteBook();
-    Note note;
 
-    public NoteBook load(String path) {
+    public ArrayList<String> load(String path) {
+        ArrayList <String> values = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(path))) {
-            while (scanner.hasNextLine()) {
-                currentBook.add(getRecordFromLine(scanner.nextLine()));
+            scanner.useDelimiter("; ");
+            while (scanner.hasNext()) {
+                values.add(scanner.next());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return currentBook;
+        return values;
     }
 
-    public Note getRecordFromLine(String line) {
-        List<String> values = new ArrayList<>();
-        try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter(" -> ");
-            while (rowScanner.hasNext()) {
-                values.add(rowScanner.next());
-            }
-            note = new Note(dateFormater.StringToLocalDateTime(values.get(0)), values.get(1));
-        }
-        return note;
-    }
 }
